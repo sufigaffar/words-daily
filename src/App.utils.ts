@@ -36,7 +36,7 @@ let wordSet: Set<string> | null = null;
 
 async function loadWordList(): Promise<Set<string>> {
   if (wordSet) return wordSet;
-  const response = await fetch('/words.txt');
+  const response = await fetch(`${import.meta.env.BASE_URL}words.txt`);
   const text = await response.text();
   wordSet = new Set(text.split('\n').map(w => w.trim().toLowerCase()));
   return wordSet;
