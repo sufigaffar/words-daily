@@ -18,6 +18,8 @@ function App() {
 
   const highlightedIndices = React.useMemo(() => {
     const indices = new Set<number>();
+    console.log({rowMatches})
+    console.log({columnMatches})
     rowMatches.forEach((match, rowIdx) => {
       if (match.word) {
         Array.from({ length: match.word.length }, (_, i) => indices.add(rowIdx * 5 + match.start + i));
@@ -30,6 +32,8 @@ function App() {
     });
     return indices;
   }, [rowMatches, columnMatches]);
+
+  console.log({highlightedIndices})
 
   const onButtonClick = (boxIndex: number) => {
     setBoxes(prevBoxes => {
@@ -71,14 +75,16 @@ function App() {
         </div>
         <section className={styles.gridContainer}>
           {boxes.map(((box, i) => (
-            <button
-              onClick={() => onButtonClick(i)}
-              key={i}
-              disabled={box !== '_'}
-              className={`${styles.box} ${highlightedIndices.has(i) ? styles.boxHighlighted : ''}`}
-            >
-              {box}
-            </button>
+            <div className={`${styles.boxContainer} ${highlightedIndices.has(i) ? styles.boxHighlighted : ''}`}>
+              <button
+                onClick={() => onButtonClick(i)}
+                key={i}
+                disabled={box !== '_'}
+                className={`${styles.box}`}
+              >
+                {box}
+              </button>
+            </div>
           )))}
         </section>
         <div className={styles.rowScores}>{rowScores.map((score, i) => (<div className={styles.score} key={i}>{score}</div>))}</div>
