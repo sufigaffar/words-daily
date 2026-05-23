@@ -66,8 +66,10 @@ function App() {
       <div className={styles.gameContainer}>
         <div className={styles.characterPreview}>
           <div className={styles.mainLetter}>{gameState === 'finished' ? `Score: ${finalScore}` : currentLetter}</div>
-          <span className={styles.nextLetter}>{allLetters[currentTurn + 1]}</span>
-          <span className={styles.nextLetter}>{allLetters[currentTurn + 2]}</span>
+          <div className={styles.nextLetters}>
+            <span>{allLetters[currentTurn + 1]}</span>
+            <span>{allLetters[currentTurn + 2]}</span>
+          </div>
         </div>
         <section className={styles.gridContainer}>
           {boxes.map(((box, i) => (
