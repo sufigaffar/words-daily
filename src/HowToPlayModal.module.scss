@@ -20,12 +20,16 @@
     gap: 20px;
     min-width: 340px;
     max-width: 90vw;
+    min-height: 85vh;
+    max-height: 92vh;
+    overflow-y: auto;
     box-sizing: border-box;
 
     @media (max-width: 480px) {
         min-width: 0;
         width: calc(100vw - 20px);
         max-width: calc(100vw - 20px);
+        min-height: 88vh;
     }
 }
 
@@ -59,24 +63,26 @@
 
 .steps {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 14px;
     width: 100%;
+    flex: 1;
 }
 
 .step {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border-default);
     border-radius: 10px;
-    padding: 14px 10px;
+    padding: 24px 20px;
+    flex: 1;
 }
 
 .stepLabel {
-    font-size: 0.72rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: var(--color-text-muted);
     text-align: center;
@@ -88,19 +94,19 @@
 .miniGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
+    gap: 5px;
 }
 
 .miniCell {
-    width: 22px;
-    height: 22px;
-    border-radius: 3px;
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-text-cell);
 }
@@ -128,13 +134,13 @@
 
 .miniRow {
     display: flex;
-    gap: 3px;
+    gap: 5px;
 }
 
 .miniRowCell {
-    width: 22px;
-    height: 22px;
-    border-radius: 3px;
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
 }
@@ -145,7 +151,7 @@
 }
 
 .scoreBadge {
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-text-word);
     background-color: var(--color-bg-word);
@@ -170,7 +176,7 @@
 }
 
 .miniCurrentLetter {
-    font-size: 1.4rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--color-text-accent);
     line-height: 1;
@@ -179,10 +185,10 @@
 .miniNextLetters {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
 
     span {
-        font-size: 0.7rem;
+        font-size: 1.1rem;
         font-weight: 600;
         color: var(--color-text-muted);
         line-height: 1;
