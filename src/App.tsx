@@ -2,7 +2,20 @@ import * as React from 'react';
 import styles from './App.module.scss';
 import { useGame } from "./useGame.ts";
 import { BestGridModal } from "./BestGridModal.tsx";
+import { HowToPlayModal } from "./HowToPlayModal.tsx";
 import { WordGrid } from "./WordGrid.tsx";
+
+const SEEN_COOKIE = 'fbf_seen_instructions';
+
+function hasSeenInstructions(): boolean {
+  return document.cookie.split(';').some(c => c.trim().startsWith(`${SEEN_COOKIE}=`));
+}
+
+function markInstructionsSeen(): void {
+  const expires = new Date();
+  expires.setFullYear(expires.getFullYear() + 1);
+  document.cookie = `${SEEN_COOKIE}=1; expires=${expires.toUTCString()}; path=/`;
+}
 
 function App() {
   const {
@@ -27,6 +40,13 @@ function App() {
 
   const [modalClosed, setModalClosed] = React.useState(false);
   const showModal = gameState === 'finished' && !modalClosed;
+
+  const [howToPlayClosed, setHowToPlayClosed] = React.useState(hasSeenInstructions);
+
+  const handleCloseHowToPlay = () => {
+    markInstructionsSeen();
+    setHowToPlayClosed(true);
+  };
 
   return (
     <>
@@ -73,6 +93,10 @@ function App() {
         <span>built by Sufi Gaffar</span>
         <span className={styles.footerDedication}>in memory of Dan Jacobson</span>
       </footer>
+
+      {!howToPlayClosed && (
+        <HowToPlayModal onClose={handleCloseHowToPlay} />
+      )}
 
       {showModal && (
         <BestGridModal
