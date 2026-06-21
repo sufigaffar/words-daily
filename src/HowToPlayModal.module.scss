@@ -16,17 +16,28 @@
     padding: 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
     min-width: 340px;
     max-width: 90vw;
+    min-height: 85vh;
+    max-height: 92vh;
     box-sizing: border-box;
 
     @media (max-width: 480px) {
         min-width: 0;
         width: calc(100vw - 20px);
         max-width: calc(100vw - 20px);
+        min-height: 88vh;
     }
+}
+
+.scrollContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
 }
 
 .heading {
@@ -59,24 +70,27 @@
 
 .steps {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 14px;
     width: 100%;
+    flex: 1;
 }
 
 .step {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 16px;
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border-default);
     border-radius: 10px;
-    padding: 14px 10px;
+    padding: 24px 20px;
+    flex: 1;
 }
 
 .stepLabel {
-    font-size: 0.72rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--color-text-muted);
     text-align: center;
@@ -88,20 +102,21 @@
 .miniGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
+    gap: 5px;
+    font-family: var(--font-sans);
 }
 
 .miniCell {
-    width: 22px;
-    height: 22px;
-    border-radius: 3px;
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--color-text-cell);
 }
 
@@ -123,35 +138,45 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 12px;
+    flex: 1;
 }
 
 .miniRow {
     display: flex;
-    gap: 3px;
+    gap: 5px;
 }
 
 .miniRowCell {
-    width: 22px;
-    height: 22px;
-    border-radius: 3px;
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-word);
 }
 
 .miniRowCellWord {
     background-color: var(--color-bg-word);
     border-color: var(--color-border-word);
+    font-family: var(--font-sans);
 }
 
 .scoreBadge {
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--color-text-word);
     background-color: var(--color-bg-word);
     border: 1px solid var(--color-border-word);
     border-radius: 4px;
     padding: 2px 7px;
+    font-family: var(--font-sans);
 }
 
 /* --- Mini letter preview (step 3) --- */
@@ -167,22 +192,26 @@
     padding: 6px 10px;
     width: 100%;
     box-sizing: border-box;
+    flex: 1;
+    font-family: var(--font-sans);
 }
 
 .miniCurrentLetter {
-    font-size: 1.4rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--color-text-accent);
     line-height: 1;
+    font-family: var(--font-sans);
 }
 
 .miniNextLetters {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    flex-direction: row;
+    gap: 8px;
+    font-family: var(--font-sans);
 
     span {
-        font-size: 0.7rem;
+        font-size: 1.1rem;
         font-weight: 600;
         color: var(--color-text-muted);
         line-height: 1;

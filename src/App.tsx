@@ -5,16 +5,16 @@ import { BestGridModal } from "./BestGridModal.tsx";
 import { HowToPlayModal } from "./HowToPlayModal.tsx";
 import { WordGrid } from "./WordGrid.tsx";
 
-const SEEN_COOKIE = 'fbf_seen_instructions';
+const PLAYED_COOKIE = 'fbf_has_played';
 
-function hasSeenInstructions(): boolean {
-  return document.cookie.split(';').some(c => c.trim().startsWith(`${SEEN_COOKIE}=`));
+function hasEverPlayed(): boolean {
+  return document.cookie.split(';').some(c => c.trim().startsWith(`${PLAYED_COOKIE}=`));
 }
 
-function markInstructionsSeen(): void {
+function markHasPlayed(): void {
   const expires = new Date();
   expires.setFullYear(expires.getFullYear() + 1);
-  document.cookie = `${SEEN_COOKIE}=1; expires=${expires.toUTCString()}; path=/`;
+  document.cookie = `${PLAYED_COOKIE}=1; expires=${expires.toUTCString()}; path=/`;
 }
 
 function App() {
@@ -41,12 +41,14 @@ function App() {
   const [modalClosed, setModalClosed] = React.useState(false);
   const showModal = gameState === 'finished' && !modalClosed;
 
-  const [howToPlayClosed, setHowToPlayClosed] = React.useState(hasSeenInstructions);
+  const [howToPlayClosed, setHowToPlayClosed] = React.useState(hasEverPlayed);
 
-  const handleCloseHowToPlay = () => {
-    markInstructionsSeen();
-    setHowToPlayClosed(true);
-  };
+  React.useEffect(() => {
+    if (gameState === 'finished') {
+      markHasPlayed();
+      setHowToPlayClosed(true);
+    }
+  }, [gameState]);
 
   return (
     <>
@@ -95,7 +97,7 @@ function App() {
       </footer>
 
       {!howToPlayClosed && (
-        <HowToPlayModal onClose={handleCloseHowToPlay} />
+        <HowToPlayModal onClose={() => setHowToPlayClosed(true)} />
       )}
 
       {showModal && (
