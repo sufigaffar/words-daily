@@ -20,7 +20,7 @@ function mulberry32(seed: number) {
   };
 }
 
-function getDailySeed(): number {
+export function getDailySeed(): number {
   const d = new Date();
   return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 }
