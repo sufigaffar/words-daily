@@ -77,18 +77,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-accent);
-    font-weight: 600;
-    font-size: 15px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    font-size: 14px;
     box-sizing: border-box;
+    background-color: var(--color-bg-page);
+    border: 1px solid var(--color-border-default);
+
+    &.scoreActive {
+        background-color: var(--color-bg-accent-subtle);
+        border-color: var(--color-border-hover);
+        color: var(--color-text-accent);
+    }
 }
 
 .rowScores {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: var(--color-bg-accent-subtle);
-    border: 1px solid var(--color-border-default);
     font-family: var(--font-sans);
 }
 
@@ -96,8 +102,6 @@
     display: grid;
     grid-template-columns: repeat(4, 60px) 50px;
     justify-items: start;
-    background-color: var(--color-bg-accent-subtle);
-    border: 1px solid var(--color-border-default);
     font-family: var(--font-sans);
 }
 

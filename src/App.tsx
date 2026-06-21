@@ -57,10 +57,14 @@ function App() {
           onCellClick={placeLetterAt}
         />
         <div className={styles.rowScores}>
-          {rowScores.map((score, i) => <div className={styles.score} key={i}>{score}</div>)}
+          {rowScores.map((score, i) => (
+            <div className={`${styles.score}${score > 0 ? ` ${styles.scoreActive}` : ''}`} key={i}>{score}</div>
+          ))}
         </div>
         <div className={styles.columnScores}>
-          {columnScores.map((score, i) => <div className={styles.score} key={i}>{score}</div>)}
+          {columnScores.map((score, i) => (
+            <div className={`${styles.score}${score > 0 ? ` ${styles.scoreActive}` : ''}`} key={i}>{score}</div>
+          ))}
         </div>
       </div>
       </div>
