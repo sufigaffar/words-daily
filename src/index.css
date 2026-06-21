@@ -1,9 +1,31 @@
+:root {
+    /* Backgrounds */
+    --color-bg-page: #f0f1f5;
+    --color-bg-surface: #ffffff;
+    --color-bg-accent-subtle: #eef0fc;
+    --color-bg-hover: #f4f5ff;
+    --color-bg-word: #ddf4e8;
+
+    /* Text */
+    --color-text-body: #2d2f3e;
+    --color-text-cell: #4b4f6b;
+    --color-text-accent: #5458a8;
+    --color-text-muted: #9296c4;
+    --color-text-word: #1e6b42;
+
+    /* Borders */
+    --color-border-default: #d6d9e8;
+    --color-border-disabled: #c5c9e8;
+    --color-border-hover: #7c82c8;
+    --color-border-word: #6abf8a;
+}
+
 body {
     font-family: Arial, sans-serif;
     height: 100%;
     margin: 0;
-    background-color: #f0f1f5;
-    color: #2d2f3e;
+    background-color: var(--color-bg-page);
+    color: var(--color-text-body);
 }
 
 html {
