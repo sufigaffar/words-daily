@@ -215,7 +215,10 @@
 .shareButton {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 7px;
+    width: fit-content;
+    min-width: 140px;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -226,6 +229,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.15s;
+    box-sizing: border-box;
 
     &:hover {
         opacity: 0.85;
