@@ -1,6 +1,8 @@
+import * as React from 'react';
 import styles from './App.module.scss';
 import { useGame } from "./useGame.ts";
-import { GridCell } from "./GridCell.tsx";
+import { BestGridModal } from "./BestGridModal.tsx";
+import { WordGrid } from "./WordGrid.tsx";
 
 function App() {
   const {
@@ -15,41 +17,74 @@ function App() {
     highlightedCells,
     rightConnectorCells,
     bottomConnectorCells,
+    bestGrid,
+    bestScore,
+    bestHighlightedCells,
+    bestRightConnectorCells,
+    bestBottomConnectorCells,
     placeLetterAt,
   } = useGame();
 
+  const [modalClosed, setModalClosed] = React.useState(false);
+  const showModal = gameState === 'finished' && !modalClosed;
+
   return (
-    <div className={styles.gameContainer}>
-      <div className={styles.characterPreview}>
-        <div className={styles.mainLetter}>
-          {gameState === 'finished' ? `Score: ${finalScore}` : currentLetter}
+    <>
+      <header className={styles.banner}>
+        <span>five<span className={styles.bannerBy}>by</span>five</span>
+        {gameState === 'finished' && (
+          <button className={styles.viewBestButton} onClick={() => setModalClosed(false)}>
+            View insights
+          </button>
+        )}
+      </header>
+      <div className={styles.gameArea}>
+      <div className={styles.gameContainer}>
+        <div className={styles.characterPreview}>
+          <div className={styles.mainLetter}>
+            {gameState === 'finished' ? `Score: ${finalScore}` : currentLetter}
+          </div>
+          <div className={styles.nextLetters}>
+            <span>{allLetters[currentTurn + 1]}</span>
+            <span>{allLetters[currentTurn + 2]}</span>
+          </div>
         </div>
-        <div className={styles.nextLetters}>
-          <span>{allLetters[currentTurn + 1]}</span>
-          <span>{allLetters[currentTurn + 2]}</span>
+        <WordGrid
+          letters={boxes}
+          highlightedCells={highlightedCells}
+          rightConnectorCells={rightConnectorCells}
+          bottomConnectorCells={bottomConnectorCells}
+          onCellClick={placeLetterAt}
+        />
+        <div className={styles.rowScores}>
+          {rowScores.map((score, i) => <div className={styles.score} key={i}>{score}</div>)}
+        </div>
+        <div className={styles.columnScores}>
+          {columnScores.map((score, i) => <div className={styles.score} key={i}>{score}</div>)}
         </div>
       </div>
-      <section className={styles.gridContainer}>
-        {boxes.map((letter, i) => (
-          <GridCell
-            key={i}
-            letter={letter}
-            isHighlighted={highlightedCells.has(i)}
-            hasRightConnector={rightConnectorCells.has(i)}
-            hasBottomConnector={bottomConnectorCells.has(i)}
-            hasLeftConnector={i % 5 !== 0 && rightConnectorCells.has(i - 1)}
-            hasTopConnector={i >= 5 && bottomConnectorCells.has(i - 5)}
-            onClick={() => placeLetterAt(i)}
-          />
-        ))}
-      </section>
-      <div className={styles.rowScores}>
-        {rowScores.map((score, i) => <div className={styles.score} key={i}>{score}</div>)}
       </div>
-      <div className={styles.columnScores}>
-        {columnScores.map((score, i) => <div className={styles.score} key={i}>{score}</div>)}
-      </div>
-    </div>
+
+      <footer className={styles.footer}>
+        <span>built by Sufi Gaffar</span>
+        <span className={styles.footerDedication}>in memory of Dan Jacobson</span>
+      </footer>
+
+      {showModal && (
+        <BestGridModal
+          finalScore={finalScore}
+          highlightedCells={highlightedCells}
+          rowScores={rowScores}
+          columnScores={columnScores}
+          bestGrid={bestGrid}
+          bestScore={bestScore}
+          bestHighlightedCells={bestHighlightedCells}
+          bestRightConnectorCells={bestRightConnectorCells}
+          bestBottomConnectorCells={bestBottomConnectorCells}
+          onClose={() => setModalClosed(true)}
+        />
+      )}
+    </>
   );
 }
 

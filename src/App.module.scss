@@ -1,8 +1,27 @@
-.gridContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 60px) 50px;
+
+.banner {
+    width: 100%;
+    background-color: #5458a8;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 14px 24px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .bannerBy {
+        color: rgba(255, 255, 255, 0.55);
+    }
 }
 
+.gameArea {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
 
 .characterPreview {
     grid-column: 1 / -1;
@@ -17,6 +36,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        font-family: var(--font-sans);
         font-size: 2rem;
         font-weight: 700;
         color: var(--color-text-accent);
@@ -28,6 +48,7 @@
         top: 50%;
         transform: translateY(-50%);
         right: 16px;
+        font-family: var(--font-sans);
         font-size: 1rem;
         color: var(--color-text-muted);
 
@@ -49,6 +70,7 @@
     gap: 10px;
 }
 
+
 .score {
     height: 50px;
     width: 50px;
@@ -67,6 +89,7 @@
     gap: 10px;
     background-color: var(--color-bg-accent-subtle);
     border: 1px solid var(--color-border-default);
+    font-family: var(--font-sans);
 }
 
 .columnScores {
@@ -75,4 +98,41 @@
     justify-items: start;
     background-color: var(--color-bg-accent-subtle);
     border: 1px solid var(--color-border-default);
+    font-family: var(--font-sans);
+}
+
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 10px;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    opacity: 0.9;
+
+    .footerDedication {
+        font-size: 0.7rem;
+        opacity: 0.75;
+        font-style: italic;
+    }
+}
+
+.viewBestButton {
+    padding: 6px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    background-color: transparent;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.8);
+    }
 }

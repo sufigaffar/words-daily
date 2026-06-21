@@ -42,6 +42,87 @@ async function loadWordList(): Promise<Set<string>> {
   return wordSet;
 }
 
+function getLongestWordLengthSync(s: string, words: Set<string>): number {
+  let best = 0;
+  for (let i = 0; i < s.length; i++) {
+    for (let j = i + 1; j <= s.length; j++) {
+      if (j - i > best && words.has(s.slice(i, j))) {
+        best = j - i;
+      }
+    }
+  }
+  return best;
+}
+
+function scoreGridSync(grid: string[], words: Set<string>): number {
+  const lower = grid.map(l => l.toLowerCase());
+  const rowScore = Array.from({ length: 5 }, (_, r) =>
+    getLongestWordLengthSync(lower.slice(r * 5, r * 5 + 5).join(''), words)
+  ).reduce((sum, s) => sum + s, 0);
+  const colScore = Array.from({ length: 5 }, (_, c) =>
+    getLongestWordLengthSync(lower.filter((_, i) => i % 5 === c).join(''), words)
+  ).reduce((sum, s) => sum + s, 0);
+  return rowScore + colScore;
+}
+
+export async function calculateBestGrid(letters: string[]): Promise<string[]> {
+  const words = await loadWordList();
+  const baseSeed = getDailySeed();
+
+  let globalBest = [...letters];
+  let globalBestScore = scoreGridSync(globalBest, words);
+
+  const NUM_RESTARTS = 20;
+  const ITERATIONS = 20000;
+
+  for (let restart = 0; restart < NUM_RESTARTS; restart++) {
+    await new Promise(r => setTimeout(r, 0));
+    const rand = mulberry32(baseSeed + restart * 999983);
+
+    const current = [...letters];
+    for (let i = current.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [current[i], current[j]] = [current[j], current[i]];
+    }
+
+    let currentScore = scoreGridSync(current, words);
+    let best = [...current];
+    let bestScore = currentScore;
+
+    let temp = 5.0;
+    const cooling = Math.pow(0.0001 / temp, 1 / ITERATIONS);
+
+    for (let iter = 0; iter < ITERATIONS; iter++) {
+      const a = Math.floor(rand() * 25);
+      const b = Math.floor(rand() * 25);
+      if (a === b) continue;
+
+      [current[a], current[b]] = [current[b], current[a]];
+      const newScore = scoreGridSync(current, words);
+      const delta = newScore - currentScore;
+
+      if (delta > 0 || rand() < Math.exp(delta / temp)) {
+        currentScore = newScore;
+        if (currentScore > bestScore) {
+          bestScore = currentScore;
+          best = [...current];
+        }
+      } else {
+        [current[a], current[b]] = [current[b], current[a]];
+      }
+
+      temp *= cooling;
+    }
+
+    if (bestScore > globalBestScore) {
+      globalBestScore = bestScore;
+      globalBest = best;
+    }
+  }
+
+  return globalBest;
+}
+
 export async function isValidWord(word: string): Promise<boolean> {
   const wordSet = await loadWordList();
   return wordSet.has(word.toLowerCase());
