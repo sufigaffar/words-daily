@@ -5,7 +5,7 @@ type Props = {
 };
 
 function MiniGrid() {
-  const letters = ['', '', '', '', 'W', '', '', 'O', 'R'];
+  const letters = ['', '', '', '', 'W', '', 'D', 'O', 'G'];
   const highlighted = new Set([6, 7, 8]);
   return (
     <div className={styles.miniGrid}>
@@ -19,12 +19,14 @@ function MiniGrid() {
 }
 
 function MiniScoreRow() {
-  const word = [true, true, true, true, false];
+  const cells = ['P', 'L', 'A', 'Y', ''];
   return (
     <div className={styles.miniScoreWrap}>
       <div className={styles.miniRow}>
-        {word.map((active, i) => (
-          <div key={i} className={`${styles.miniRowCell} ${active ? styles.miniRowCellWord : ''}`} />
+        {cells.map((letter, i) => (
+          <div key={i} className={`${styles.miniRowCell} ${letter ? styles.miniRowCellWord : ''}`}>
+            {letter}
+          </div>
         ))}
       </div>
       <span className={styles.scoreBadge}>+4</span>
@@ -54,20 +56,22 @@ export function HowToPlayModal({ onClose }: Props) {
           </svg>
         </button>
 
-        <div className={styles.heading}>How to play</div>
+        <div className={styles.scrollContent}>
+          <div className={styles.heading}>How to play</div>
 
-        <div className={styles.steps}>
-          <div className={styles.step}>
-            <MiniGrid />
-            <span className={styles.stepLabel}>Place letters on the 5×5 grid</span>
-          </div>
-          <div className={styles.step}>
-            <MiniScoreRow />
-            <span className={styles.stepLabel}>Words in rows &amp; columns score points</span>
-          </div>
-          <div className={styles.step}>
-            <MiniPreview />
-            <span className={styles.stepLabel}>Plan ahead with upcoming letters</span>
+          <div className={styles.steps}>
+            <div className={styles.step}>
+              <MiniGrid />
+              <span className={styles.stepLabel}>Place letters on the 5×5 grid</span>
+            </div>
+            <div className={styles.step}>
+              <MiniScoreRow />
+              <span className={styles.stepLabel}>Words in rows &amp; columns score points per letter</span>
+            </div>
+            <div className={styles.step}>
+              <MiniPreview />
+              <span className={styles.stepLabel}>Plan ahead with upcoming letters</span>
+            </div>
           </div>
         </div>
 
