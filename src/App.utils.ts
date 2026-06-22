@@ -1,14 +1,28 @@
 const LETTER_WEIGHTS: Record<string, number> = {
-  A: 8, E: 8, I: 8, O: 7, U: 4,
-  L: 4, S: 4, T: 5, R: 5, N: 5,
-  D: 4, G: 3, B: 2, C: 2, M: 2,
-  P: 2, F: 2, H: 2, W: 2, Y: 2,
-  V: 2, K: 2, J: 1, X: 1, Q: 1, Z: 1,
+  // Vowels — ~38% of pool, matching typical English text
+  E: 65, A: 40, O: 40, I: 35, U: 15,
+  // Common consonants
+  T: 45, N: 35, S: 30, R: 30, H: 30, L: 20, D: 20, C: 15, M: 15,
+  W: 10, F: 10, G: 10, Y: 10, P: 10, B: 10,
+  // Uncommon consonants
+  V: 5, K: 5,
+  // Very rare — each appears in ~5% of games
+  J: 1, X: 1, Q: 1, Z: 1,
 };
 
-const WEIGHTED_ALPHABET = Object.entries(LETTER_WEIGHTS).flatMap(
-  ([letter, weight]) => Array(weight).fill(letter)
-);
+const VOWELS = new Set(['A', 'E', 'I', 'O', 'U']);
+
+// First letter is always a common letter; split by type so the starter matches its assigned position type
+const COMMON_VOWEL_STARTERS = ['E', 'A', 'O', 'I'];
+const COMMON_CONSONANT_STARTERS = ['T', 'N', 'S', 'R', 'L', 'H', 'D', 'C'];
+
+const VOWEL_POOL: string[] = Object.entries(LETTER_WEIGHTS)
+  .filter(([l]) => VOWELS.has(l))
+  .flatMap(([l, w]) => Array<string>(w).fill(l));
+
+const CONSONANT_POOL: string[] = Object.entries(LETTER_WEIGHTS)
+  .filter(([l]) => !VOWELS.has(l))
+  .flatMap(([l, w]) => Array<string>(w).fill(l));
 
 function mulberry32(seed: number) {
   return function () {
@@ -27,9 +41,24 @@ export function getDailySeed(): number {
 
 export function getDailyLetters(count: number): string[] {
   const rand = mulberry32(getDailySeed());
-  return Array.from({ length: count }, () =>
-    WEIGHTED_ALPHABET[Math.floor(rand() * WEIGHTED_ALPHABET.length)]
+
+  const minVowels = Math.round(count * 0.32); // 8 for count=25
+  const maxVowels = Math.round(count * 0.44); // 11 for count=25
+  const numVowels = minVowels + Math.floor(rand() * (maxVowels - minVowels + 1));
+
+  // Bresenham-style: compute which positions are vowel slots so they're evenly spaced
+  const isVowelPos = Array.from({ length: count }, (_, i) =>
+    Math.floor((i + 1) * numVowels / count) > Math.floor(i * numVowels / count)
   );
+
+  return Array.from({ length: count }, (_, i) => {
+    if (i === 0) {
+      const starters = isVowelPos[0] ? COMMON_VOWEL_STARTERS : COMMON_CONSONANT_STARTERS;
+      return starters[Math.floor(rand() * starters.length)];
+    }
+    const pool = isVowelPos[i] ? VOWEL_POOL : CONSONANT_POOL;
+    return pool[Math.floor(rand() * pool.length)];
+  });
 }
 
 let wordSet: Set<string> | null = null;
