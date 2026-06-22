@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from './BestGridModal.module.scss';
 import { WordGrid } from './WordGrid.tsx';
+import { trackEvent } from './analytics.ts';
 
 type Tab = 'results' | 'best-score' | 'stats';
 
@@ -43,6 +44,7 @@ export function BestGridModal({
   const [copied, setCopied] = React.useState(false);
 
   const handleShare = () => {
+    trackEvent('share_clicked', { score: finalScore });
     navigator.clipboard.writeText(buildShareText(finalScore, highlightedCells)).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
