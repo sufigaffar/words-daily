@@ -5,9 +5,9 @@ const LETTER_WEIGHTS: Record<string, number> = {
   T: 45, N: 35, S: 30, R: 30, H: 30, L: 20, D: 20, C: 15, M: 15,
   W: 10, F: 10, G: 10, Y: 10, P: 10, B: 10,
   // Uncommon consonants
-  V: 5, K: 5,
-  // Very rare — each appears in ~5% of games
-  J: 1, X: 1, Q: 1, Z: 1,
+  V: 2, K: 2,
+  // Very rare
+  J: 1, X: 1, Z: 1
 };
 
 const VOWELS = new Set(['A', 'E', 'I', 'O', 'U']);
