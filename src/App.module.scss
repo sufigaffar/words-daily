@@ -59,6 +59,35 @@
     }
 }
 
+.undoButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-default);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-bg-hover);
+        color: var(--color-text-accent);
+        border-color: var(--color-border-hover);
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: default;
+    }
+}
+
 .gameContainer {
     width: 350px;
     margin: 0 auto;

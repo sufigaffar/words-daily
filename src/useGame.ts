@@ -3,24 +3,26 @@ import { calculateBestGrid, calculateScore, getDailyLetters, getDailySeed, type 
 
 const COOKIE_KEY = `fivebyfive_${getDailySeed()}`;
 
-type SavedGame = { boxes: string[]; currentTurn: number };
+type SavedGame = { boxes: string[]; currentTurn: number; history: number[]; undoUsed: boolean };
 
 function loadSavedGame(): SavedGame | null {
   const entry = document.cookie.split('; ').find(row => row.startsWith(`${COOKIE_KEY}=`));
   if (!entry) return null;
   const value = decodeURIComponent(entry.split('=')[1]);
-  const pipeIdx = value.indexOf('|');
-  if (pipeIdx === -1) return null;
-  const currentTurn = parseInt(value.slice(0, pipeIdx), 10);
-  const boxes = value.slice(pipeIdx + 1).split(',');
+  const parts = value.split('|');
+  if (parts.length < 2) return null;
+  const currentTurn = parseInt(parts[0], 10);
+  const boxes = parts[1].split(',');
+  const history = parts[2] ? parts[2].split(',').map(Number) : [];
+  const undoUsed = parts[3] === '1';
   if (isNaN(currentTurn) || boxes.length !== 25) return null;
-  return { boxes, currentTurn };
+  return { boxes, currentTurn, history, undoUsed };
 }
 
-function saveGame(boxes: string[], currentTurn: number): void {
+function saveGame(boxes: string[], currentTurn: number, history: number[], undoUsed: boolean): void {
   const expires = new Date();
   expires.setDate(expires.getDate() + 2);
-  const value = encodeURIComponent(`${currentTurn}|${boxes.join(',')}`);
+  const value = encodeURIComponent(`${currentTurn}|${boxes.join(',')}|${history.join(',')}|${undoUsed ? '1' : '0'}`);
   document.cookie = `${COOKIE_KEY}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
 }
 
@@ -60,6 +62,8 @@ export function useGame() {
   const [allLetters] = React.useState<string[]>(() => getDailyLetters(25));
   const [currentLetter, setCurrentLetter] = React.useState('');
   const [currentTurn, setCurrentTurn] = React.useState(() => savedGame.current?.currentTurn ?? 0);
+  const [history, setHistory] = React.useState<number[]>(() => savedGame.current?.history ?? []);
+  const [undoUsed, setUndoUsed] = React.useState<boolean>(() => savedGame.current?.undoUsed ?? false);
   const [gameState, setGameState] = React.useState<GameState>('playing');
   const [rowMatches, setRowMatches] = React.useState<WordMatch[]>(Array(5).fill({ word: '', start: 0 }));
   const [columnMatches, setColumnMatches] = React.useState<WordMatch[]>(Array(5).fill({ word: '', start: 0 }));
@@ -117,13 +121,33 @@ export function useGame() {
   }, [gameState]);
 
   const placeLetterAt = (boxIndex: number) => {
+    const newHistory = [...history, boxIndex];
+    const newTurn = currentTurn + 1;
     setBoxes(prev => {
       const next = [...prev];
       next[boxIndex] = currentLetter;
-      saveGame(next, currentTurn + 1);
+      saveGame(next, newTurn, newHistory, false);
       return next;
     });
-    setCurrentTurn(prev => prev + 1);
+    setHistory(newHistory);
+    setUndoUsed(false);
+    setCurrentTurn(newTurn);
+  };
+
+  const undoLastPlacement = () => {
+    if (history.length === 0 || undoUsed) return;
+    const lastCellIndex = history[history.length - 1];
+    const newHistory = history.slice(0, -1);
+    const newTurn = currentTurn - 1;
+    setBoxes(prev => {
+      const next = [...prev];
+      next[lastCellIndex] = '_';
+      saveGame(next, newTurn, newHistory, true);
+      return next;
+    });
+    setHistory(newHistory);
+    setUndoUsed(true);
+    setCurrentTurn(newTurn);
   };
 
   return {
@@ -146,5 +170,7 @@ export function useGame() {
     bestRightConnectorCells,
     bestBottomConnectorCells,
     placeLetterAt,
+    undoLastPlacement,
+    canUndo: history.length > 0 && !undoUsed,
   };
 }

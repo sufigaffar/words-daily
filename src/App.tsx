@@ -36,6 +36,8 @@ function App() {
     bestRightConnectorCells,
     bestBottomConnectorCells,
     placeLetterAt,
+    undoLastPlacement,
+    canUndo,
   } = useGame();
 
   const [modalClosed, setModalClosed] = React.useState(false);
@@ -63,6 +65,19 @@ function App() {
       <div className={styles.gameArea}>
       <div className={styles.gameContainer}>
         <div className={styles.characterPreview}>
+          {gameState === 'playing' && (
+            <button
+              className={styles.undoButton}
+              onClick={undoLastPlacement}
+              disabled={!canUndo}
+              aria-label="Undo last placement"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 6H9a3 3 0 010 6H7" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M5 3L2 6l3 3" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          )}
           <div className={styles.mainLetter}>
             {gameState === 'finished' ? `Score: ${finalScore}` : currentLetter}
           </div>
