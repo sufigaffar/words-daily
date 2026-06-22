@@ -3,9 +3,9 @@ const LETTER_WEIGHTS: Record<string, number> = {
   E: 65, A: 40, O: 40, I: 35, U: 15,
   // Common consonants
   T: 45, N: 35, S: 30, R: 30, H: 30, L: 20, D: 20, C: 15, M: 15,
-  W: 10, F: 10, G: 10, Y: 10, P: 10, B: 10,
+  F: 10, G: 10, Y: 10, P: 10, B: 10,
   // Uncommon consonants
-  V: 2, K: 2,
+  W: 5, V: 2, K: 2,
   // Very rare
   J: 1, X: 1, Z: 1
 };

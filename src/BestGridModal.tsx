@@ -139,6 +139,7 @@ export function BestGridModal({
                     bottomConnectorCells={bestBottomConnectorCells}
                   />
                   <span className={styles.score}>Total: {bestScore}</span>
+                  <span className={styles.bestScoreNote}>The theoretical best arrangement of today's letters</span>
                 </>
               )}
             </>
