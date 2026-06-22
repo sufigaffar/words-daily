@@ -1,5 +1,6 @@
 import * as React from "react";
 import { calculateBestGrid, calculateScore, getDailyLetters, getDailySeed, type WordMatch } from "./App.utils.ts";
+import { trackEvent } from "./analytics.ts";
 
 const COOKIE_KEY = `fivebyfive_${getDailySeed()}`;
 
@@ -58,6 +59,7 @@ function computeHighlights(rowMatches: WordMatch[], columnMatches: WordMatch[]) 
 
 export function useGame() {
   const savedGame = React.useRef(loadSavedGame());
+  const gameCompletedTracked = React.useRef((savedGame.current?.currentTurn ?? 0) >= 25);
   const [boxes, setBoxes] = React.useState<string[]>(() => savedGame.current?.boxes ?? Array(25).fill('_'));
   const [allLetters] = React.useState<string[]>(() => getDailyLetters(25));
   const [currentLetter, setCurrentLetter] = React.useState('');
@@ -106,6 +108,11 @@ export function useGame() {
     calculateScore(boxes).then(([rowResults, columnResults]) => {
       setRowMatches(rowResults);
       setColumnMatches(columnResults);
+      if (currentTurn >= 25 && !gameCompletedTracked.current) {
+        gameCompletedTracked.current = true;
+        const score = [...rowResults, ...columnResults].reduce((acc, m) => acc + m.word.length, 0);
+        trackEvent('game_completed', { score });
+      }
     });
   }, [boxes]);
 
@@ -132,10 +139,12 @@ export function useGame() {
     setHistory(newHistory);
     setUndoUsed(false);
     setCurrentTurn(newTurn);
+    trackEvent('letter_placed', { turn: newTurn });
   };
 
   const undoLastPlacement = () => {
     if (history.length === 0 || undoUsed) return;
+    trackEvent('undo_used', { turn: currentTurn });
     const lastCellIndex = history[history.length - 1];
     const newHistory = history.slice(0, -1);
     const newTurn = currentTurn - 1;

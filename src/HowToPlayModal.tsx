@@ -1,4 +1,5 @@
 import styles from './HowToPlayModal.module.scss';
+import { trackEvent } from './analytics.ts';
 
 type Props = {
   onClose: () => void;
@@ -75,7 +76,7 @@ export function HowToPlayModal({ onClose }: Props) {
           </div>
         </div>
 
-        <button className={styles.playButton} onClick={onClose}>
+        <button className={styles.playButton} onClick={() => { trackEvent('play_clicked'); onClose(); }}>
           Play
         </button>
       </div>
