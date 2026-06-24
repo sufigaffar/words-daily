@@ -11,7 +11,7 @@ const LETTER_WEIGHTS: Record<string, number> = {
 };
 
 const VOWELS = new Set(['A', 'E', 'I', 'O', 'U']);
-const COMMON_CONSONANTS = new Set(['T', 'N', 'S', 'R', 'H']);
+const COMMON_CONSONANTS = new Set(['T', 'N', 'S', 'R', 'H', 'L', 'D', 'C', 'M']);
 
 
 const VOWEL_POOL: string[] = Object.entries(LETTER_WEIGHTS)
