@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="14" flood-color="#2d2f3e" flood-opacity="0.07"/>
+    </filter>
+  </defs>
+
+  <!-- Page background -->
+  <rect width="1200" height="630" fill="#f0f1f5"/>
+
+  <!-- LEFT: Branding -->
+  <text x="88" y="308" font-family="Georgia,'Times New Roman',serif" font-size="70" font-weight="700" letter-spacing="-1" fill="#5458a8">five<tspan fill="#a9abdb">by</tspan>five</text>
+  <text x="88" y="360" font-family="Georgia,'Times New Roman',serif" font-size="24" font-weight="600" fill="#2d2f3e">daily 5×5 word puzzle</text>
+  <text x="88" y="394" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#9296c4">A new puzzle every day.</text>
+
+  <!-- RIGHT: White card -->
+  <rect x="519" y="52" width="637" height="526" rx="16" fill="#ffffff" filter="url(#shadow)"/>
+
+  <!--
+    Grid: cell=72px, gap=9px, step=81px
+    gridX=640, gridY=117
+    Words: PLANE (row 1), WORDS (row 3), PAIRS (col 2)
+    Col 2 letters: P(row0) A(row1) I(row2) R(row3) S(row4)
+  -->
+
+  <!-- Empty cells: row 0 cols 0,1,3,4 -->
+  <rect x="640" y="117" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="721" y="117" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="883" y="117" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="964" y="117" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <!-- Empty cells: row 2 cols 0,1,3,4 -->
+  <rect x="640" y="279" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="721" y="279" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="883" y="279" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="964" y="279" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <!-- Empty cells: row 4 cols 0,1,3,4 -->
+  <rect x="640" y="441" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="721" y="441" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="883" y="441" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+  <rect x="964" y="441" width="72" height="72" rx="7" fill="#ffffff" stroke="#d6d9e8" stroke-width="1.5"/>
+
+  <!-- Col 2 word: PAIRS (vertical bar, drawn first) -->
+  <rect x="802" y="117" width="72" height="396" rx="8" fill="#ddf4e8" stroke="#6abf8a" stroke-width="1.5"/>
+  <!-- Row 1 word: PLANE (horizontal bar) -->
+  <rect x="640" y="198" width="396" height="72" rx="8" fill="#ddf4e8" stroke="#6abf8a" stroke-width="1.5"/>
+  <!-- Row 3 word: WORDS (horizontal bar) -->
+  <rect x="640" y="360" width="396" height="72" rx="8" fill="#ddf4e8" stroke="#6abf8a" stroke-width="1.5"/>
+  <!-- Cover internal border artifacts at intersections -->
+  <rect x="803" y="199" width="70" height="70" fill="#ddf4e8"/>
+  <rect x="803" y="361" width="70" height="70" fill="#ddf4e8"/>
+
+  <!-- Letters: Row 1 PLANE (y-center=234) -->
+  <text x="676" y="234" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">P</text>
+  <text x="757" y="234" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">L</text>
+  <text x="838" y="234" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">A</text>
+  <text x="919" y="234" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">N</text>
+  <text x="1000" y="234" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">E</text>
+
+  <!-- Letters: Row 3 WORDS (y-center=396) -->
+  <text x="676" y="396" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">W</text>
+  <text x="757" y="396" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">O</text>
+  <text x="838" y="396" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">R</text>
+  <text x="919" y="396" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">D</text>
+  <text x="1000" y="396" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">S</text>
+
+  <!-- Letters: Col 2 PAIRS — P(row0), A(row1, already drawn), I(row2), R(row3, already drawn), S(row4) -->
+  <text x="838" y="153" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">P</text>
+  <text x="838" y="315" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">I</text>
+  <text x="838" y="477" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#1e6b42">S</text>
+
+  <!-- Score badges -->
+  <!-- Row 1: 5 pts -->
+  <rect x="1052" y="222" width="34" height="24" rx="5" fill="#ddf4e8" stroke="#6abf8a" stroke-width="1"/>
+  <text x="1069" y="234" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="600" fill="#1e6b42">5</text>
+  <!-- Row 3: 5 pts -->
+  <rect x="1052" y="384" width="34" height="24" rx="5" fill="#ddf4e8" stroke="#6abf8a" stroke-width="1"/>
+  <text x="1069" y="396" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="600" fill="#1e6b42">5</text>
+  <!-- Col 2: 5 pts -->
+  <rect x="821" y="527" width="34" height="24" rx="5" fill="#ddf4e8" stroke="#6abf8a" stroke-width="1"/>
+  <text x="838" y="539" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="600" fill="#1e6b42">5</text>
+</svg>
