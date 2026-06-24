@@ -1,79 +1,93 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-}
-
-.card {
-    position: relative;
     background-color: var(--color-bg-page);
-    border: 1px solid var(--color-border-default);
-    border-radius: 12px;
-    padding: 24px;
+    z-index: 100;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    min-width: 340px;
-    max-width: 90vw;
-    min-height: 85vh;
-    max-height: 92vh;
+}
+
+.banner {
+    width: 100%;
+    background-color: #5458a8;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 14px 24px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    .bannerBy {
+        color: rgba(255, 255, 255, 0.55);
+    }
+}
+
+/* Default: small phones (iPhone SE, ~667px tall) */
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 14px 16px;
     box-sizing: border-box;
 
-    @media (max-width: 480px) {
-        min-width: 0;
-        width: calc(100vw - 20px);
-        max-width: calc(100vw - 20px);
-        min-height: 88vh;
+    /* Mid phones: iPhone 14, ~844px tall */
+    @media (min-height: 720px) {
+        padding: 20px 20px;
+        gap: 16px;
+    }
+
+    /* Large phones: iPhone 14 Plus / Pro Max, ~932px tall */
+    @media (min-height: 860px) {
+        padding: 28px 24px;
+        gap: 20px;
     }
 }
 
 .scrollContent {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     flex: 1;
     overflow-y: auto;
     min-height: 0;
 }
 
 .heading {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-text-accent);
     align-self: flex-start;
-}
 
-.closeButton {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--color-text-muted);
-    cursor: pointer;
+    @media (min-height: 720px) {
+        font-size: 1.2rem;
+    }
 
-    &:hover {
-        background-color: var(--color-bg-hover);
-        color: var(--color-text-accent);
+    @media (min-height: 860px) {
+        font-size: 1.35rem;
     }
 }
 
 .steps {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
     width: 100%;
     flex: 1;
+    min-height: 0;
+    justify-content: center;
+
+    @media (min-height: 720px) {
+        gap: 14px;
+    }
+
+    @media (min-height: 860px) {
+        gap: 18px;
+    }
 }
 
 .step {
@@ -81,20 +95,37 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 10px;
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border-default);
     border-radius: 10px;
-    padding: 24px 20px;
-    flex: 1;
+    padding: 14px 16px;
+
+    @media (min-height: 720px) {
+        padding: 20px 20px;
+        gap: 14px;
+    }
+
+    @media (min-height: 860px) {
+        padding: 28px 24px;
+        gap: 18px;
+    }
 }
 
 .stepLabel {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--color-text-muted);
     text-align: center;
     line-height: 1.4;
+
+    @media (min-height: 720px) {
+        font-size: 0.95rem;
+    }
+
+    @media (min-height: 860px) {
+        font-size: 1.05rem;
+    }
 }
 
 /* --- Mini grid (step 1) --- */
@@ -102,22 +133,38 @@
 .miniGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    gap: 4px;
     font-family: var(--font-sans);
+
+    @media (min-height: 720px) {
+        gap: 5px;
+    }
 }
 
 .miniCell {
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
     border-radius: 5px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--color-text-cell);
+
+    @media (min-height: 720px) {
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
+    }
+
+    @media (min-height: 860px) {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
 }
 
 .miniCellFilled {
@@ -139,27 +186,46 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    flex: 1;
+    gap: 10px;
+
+    @media (min-height: 720px) {
+        gap: 12px;
+    }
 }
 
 .miniRow {
     display: flex;
-    gap: 5px;
+    gap: 4px;
+
+    @media (min-height: 720px) {
+        gap: 5px;
+    }
 }
 
 .miniRowCell {
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
     border-radius: 5px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--color-text-word);
+
+    @media (min-height: 720px) {
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
+    }
+
+    @media (min-height: 860px) {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
 }
 
 .miniRowCellWord {
@@ -169,7 +235,7 @@
 }
 
 .scoreBadge {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: var(--color-text-word);
     background-color: var(--color-bg-word);
@@ -177,6 +243,15 @@
     border-radius: 4px;
     padding: 2px 7px;
     font-family: var(--font-sans);
+
+    @media (min-height: 720px) {
+        font-size: 0.95rem;
+    }
+
+    @media (min-height: 860px) {
+        font-size: 1.05rem;
+        padding: 3px 9px;
+    }
 }
 
 /* --- Mini letter preview (step 3) --- */
@@ -189,19 +264,34 @@
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border-default);
     border-radius: 6px;
-    padding: 6px 10px;
-    width: 100%;
-    box-sizing: border-box;
-    flex: 1;
+    padding: 10px 16px;
     font-family: var(--font-sans);
+
+    @media (min-height: 720px) {
+        padding: 14px 22px;
+        gap: 10px;
+    }
+
+    @media (min-height: 860px) {
+        padding: 18px 28px;
+        gap: 12px;
+    }
 }
 
 .miniCurrentLetter {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--color-text-accent);
     line-height: 1;
     font-family: var(--font-sans);
+
+    @media (min-height: 720px) {
+        font-size: 2.2rem;
+    }
+
+    @media (min-height: 860px) {
+        font-size: 2.75rem;
+    }
 }
 
 .miniNextLetters {
@@ -211,13 +301,21 @@
     font-family: var(--font-sans);
 
     span {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         font-weight: 600;
         color: var(--color-text-muted);
         line-height: 1;
 
         &:first-child {
             color: var(--color-text-accent);
+        }
+
+        @media (min-height: 720px) {
+            font-size: 1.1rem;
+        }
+
+        @media (min-height: 860px) {
+            font-size: 1.3rem;
         }
     }
 }
@@ -240,6 +338,12 @@
     cursor: pointer;
     transition: opacity 0.15s;
     box-sizing: border-box;
+    flex-shrink: 0;
+
+    @media (min-height: 860px) {
+        padding: 14px 20px;
+        font-size: 1.05rem;
+    }
 
     &:hover {
         opacity: 0.85;
