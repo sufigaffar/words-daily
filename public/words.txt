@@ -7,10 +7,8 @@ abbas
 abbe
 abbey
 abbot
-abbr
 abby
 abc
-abcs
 abdul
 abe
 abed
@@ -35,7 +33,6 @@ abuts
 abuzz
 abyss
 accra
-acct
 ace
 aced
 aces
@@ -55,7 +52,6 @@ acres
 acrid
 act
 acted
-acth
 acton
 actor
 acts
@@ -166,7 +162,6 @@ aisha
 aisle
 ajar
 ajax
-aka
 akbar
 akin
 akita
@@ -281,7 +276,6 @@ amp
 ample
 amply
 amps
-amt
 amur
 amuse
 amway
@@ -343,7 +337,6 @@ ape
 apes
 apex
 aphid
-api
 apia
 aping
 apo
@@ -351,7 +344,6 @@ app
 apple
 apply
 apps
-apr
 april
 apron
 apse
@@ -414,7 +406,6 @@ arty
 aruba
 arum
 aryan
-asap
 ascii
 ascot
 ash
@@ -441,9 +432,7 @@ assam
 assay
 asses
 asset
-assn
 assoc
-asst
 aster
 aston
 astor
@@ -463,15 +452,12 @@ atria
 ats
 attar
 attic
-attn
-atty
 atv
 auden
 audi
 audio
 audit
 audra
-aug
 auger
 aught
 augur
@@ -492,7 +478,6 @@ ave
 aver
 avert
 avery
-avg
 avi
 avian
 avid
@@ -1108,7 +1093,6 @@ brute
 bryan
 bryon
 bsa
-btu
 bub
 buber
 bubs
@@ -1680,7 +1664,6 @@ corn
 corns
 corny
 corot
-corp
 corps
 corr
 cory
@@ -1721,7 +1704,6 @@ cozy
 cpa
 cpi
 cpo
-cpu
 crab
 crabs
 crack
@@ -1968,7 +1950,6 @@ debt
 debts
 debug
 debut
-dec
 decaf
 decal
 decay
@@ -2029,7 +2010,6 @@ deny
 deon
 depot
 depp
-dept
 depth
 derby
 derek
@@ -2128,7 +2108,6 @@ discs
 dish
 disk
 disks
-dist
 ditch
 ditto
 ditty
@@ -2444,7 +2423,6 @@ edna
 edp
 eds
 edsel
-edt
 educ
 edwin
 eec
@@ -2738,7 +2716,6 @@ fang
 fangs
 fanny
 fans
-faq
 faqs
 far
 farce
@@ -2789,7 +2766,6 @@ fears
 feast
 feat
 feats
-feb
 fecal
 feces
 fed
@@ -3102,7 +3078,6 @@ frets
 freud
 frey
 freya
-fri
 friar
 fried
 fries
@@ -3170,7 +3145,6 @@ futon
 fuzz
 fuzzy
 fwiw
-fyi
 gab
 gabby
 gable
@@ -3458,13 +3432,11 @@ gould
 gourd
 gout
 gov
-govt
 gown
 gowns
 goya
 gpa
 gpo
-gpu
 grab
 grabs
 grace
@@ -4095,7 +4067,6 @@ imams
 imbue
 imf
 imho
-imo
 imp
 impel
 imply
@@ -4104,7 +4075,6 @@ imus
 ina
 inane
 inbox
-inc
 inca
 incas
 inch
@@ -4244,7 +4214,6 @@ jami
 jamie
 jammy
 jams
-jan
 jana
 jane
 janet
@@ -4381,7 +4350,6 @@ jug
 jugs
 juice
 juicy
-jul
 julep
 jules
 julia
@@ -4392,7 +4360,6 @@ jumbo
 jump
 jumps
 jumpy
-jun
 june
 jung
 junk
@@ -5490,7 +5457,6 @@ molt
 mom
 mommy
 moms
-mon
 mona
 monad
 monet
@@ -5678,7 +5644,6 @@ nat
 natal
 natch
 nate
-natl
 nato
 natty
 nauru
@@ -5834,7 +5799,6 @@ notes
 noun
 nouns
 nous
-nov
 nova
 novae
 novas
@@ -5899,7 +5863,6 @@ och
 ocher
 ochoa
 ocr
-oct
 octal
 octet
 odd
@@ -6021,7 +5984,6 @@ ore
 orem
 oreo
 ores
-org
 organ
 orgy
 oriel
@@ -6611,7 +6573,6 @@ prune
 pry
 pryor
 psalm
-psi
 psych
 pta
 pto
@@ -6693,7 +6654,6 @@ pyrex
 qatar
 qed
 qom
-qty
 qua
 quack
 quad
@@ -7422,7 +7382,6 @@ sens
 sense
 sent
 seoul
-sep
 sepia
 sepoy
 sept
@@ -8348,7 +8307,6 @@ teeny
 tees
 teeth
 tefl
-tel
 telex
 tell
 tells
@@ -8447,7 +8405,6 @@ threw
 throb
 throw
 thru
-thu
 thud
 thug
 thugs
@@ -8728,7 +8685,6 @@ tubs
 tuck
 tucks
 tudor
-tue
 tues
 tuft
 tufts
@@ -8881,7 +8837,6 @@ uric
 uriel
 urine
 uris
-url
 urls
 urn
 urns
@@ -8889,7 +8844,6 @@ ursa
 usa
 usaf
 usage
-usb
 uscg
 usda
 use
@@ -8911,7 +8865,6 @@ usual
 usurp
 usury
 utah
-utc
 ute
 utes
 utica
@@ -9206,7 +9159,6 @@ web
 webb
 weber
 webs
-wed
 wedge
 weds
 wee
