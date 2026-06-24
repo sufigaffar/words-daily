@@ -50,7 +50,7 @@ export function BestGridModal({
     const text = buildShareText(finalScore, highlightedCells);
 
     if (canNativeShare) {
-      navigator.share({ title: 'fivebyfive', text, url: window.location.href }).catch(() => {});
+      navigator.share({ text: `${text}\n\n${window.location.href}` }).catch(() => {});
     } else {
       navigator.clipboard.writeText(`${text}\n\n${window.location.href}`).then(() => {
         setCopied(true);
