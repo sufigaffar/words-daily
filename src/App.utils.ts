@@ -3,18 +3,16 @@ const LETTER_WEIGHTS: Record<string, number> = {
   E: 65, A: 40, O: 40, I: 35, U: 15,
   // Common consonants
   T: 45, N: 35, S: 30, R: 30, H: 30, L: 20, D: 20, C: 15, M: 15,
-  F: 10, G: 10, Y: 10, P: 10, B: 10,
+  F: 6, G: 6, Y: 10, P: 6, B: 6, W: 10,
   // Uncommon consonants
-  W: 5, V: 2, K: 2,
+  V: 2, K: 2,
   // Very rare
   J: 1, X: 1, Z: 1
 };
 
 const VOWELS = new Set(['A', 'E', 'I', 'O', 'U']);
+const COMMON_CONSONANTS = new Set(['T', 'N', 'S', 'R', 'H', 'L', 'D', 'C', 'M']);
 
-// First letter is always a common letter; split by type so the starter matches its assigned position type
-const COMMON_VOWEL_STARTERS = ['E', 'A', 'O', 'I'];
-const COMMON_CONSONANT_STARTERS = ['T', 'N', 'S', 'R', 'L', 'H', 'D', 'C'];
 
 const VOWEL_POOL: string[] = Object.entries(LETTER_WEIGHTS)
   .filter(([l]) => VOWELS.has(l))
@@ -39,26 +37,56 @@ export function getDailySeed(): number {
   return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 }
 
+function shuffle<T>(arr: T[], rand: () => number): T[] {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export function getDailyLetters(count: number): string[] {
   const rand = mulberry32(getDailySeed());
 
   const minVowels = Math.round(count * 0.32); // 8 for count=25
   const maxVowels = Math.round(count * 0.44); // 11 for count=25
   const numVowels = minVowels + Math.floor(rand() * (maxVowels - minVowels + 1));
+  const numConsonants = count - numVowels;
 
   // Bresenham-style: compute which positions are vowel slots so they're evenly spaced
   const isVowelPos = Array.from({ length: count }, (_, i) =>
     Math.floor((i + 1) * numVowels / count) > Math.floor(i * numVowels / count)
   );
 
-  return Array.from({ length: count }, (_, i) => {
-    if (i === 0) {
-      const starters = isVowelPos[0] ? COMMON_VOWEL_STARTERS : COMMON_CONSONANT_STARTERS;
-      return starters[Math.floor(rand() * starters.length)];
-    }
-    const pool = isVowelPos[i] ? VOWEL_POOL : CONSONANT_POOL;
-    return pool[Math.floor(rand() * pool.length)];
+  // Build vowel multiset with proportional cap, then shuffle; E gets +1 as the most versatile vowel
+  const baseVowelCap = Math.ceil(numVowels / VOWELS.size);
+  const vowelCap = (l: string) => l === 'E' ? baseVowelCap + 1 : baseVowelCap;
+  const vowelCounts: Record<string, number> = {};
+  const vowels = Array.from({ length: numVowels }, () => {
+    const pool = VOWEL_POOL.filter(l => (vowelCounts[l] ?? 0) < vowelCap(l));
+    const letter = pool[Math.floor(rand() * pool.length)];
+    vowelCounts[letter] = (vowelCounts[letter] ?? 0) + 1;
+    return letter;
   });
+
+  // Build consonant multiset with tiered cap, then shuffle
+  const consonantCap = (l: string) => COMMON_CONSONANTS.has(l) ? 2 : 1;
+  const consonantCounts: Record<string, number> = {};
+  const consonants = Array.from({ length: numConsonants }, () => {
+    const pool = CONSONANT_POOL.filter(l => (consonantCounts[l] ?? 0) < consonantCap(l));
+    const letter = pool[Math.floor(rand() * pool.length)];
+    consonantCounts[letter] = (consonantCounts[letter] ?? 0) + 1;
+    return letter;
+  });
+
+  shuffle(vowels, rand);
+  shuffle(consonants, rand);
+
+  // Interleave into Bresenham positions
+  let vi = 0, ci = 0;
+  return Array.from({ length: count }, (_, i) =>
+    isVowelPos[i] ? vowels[vi++] : consonants[ci++]
+  );
 }
 
 let wordSet: Set<string> | null = null;
