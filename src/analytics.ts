@@ -5,5 +5,6 @@ declare global {
 }
 
 export function trackEvent(name: string, params?: Record<string, unknown>): void {
+  if (import.meta.env.DEV) return;
   window.gtag?.('event', name, params);
 }
