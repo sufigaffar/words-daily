@@ -25,7 +25,7 @@ function buildShareText(finalScore: number, highlightedCells: Set<number>): stri
     ).join('')
   ).join('\n');
 
-  return `fivebyfive – Score: ${finalScore}\n\n${rows}\n\n${window.location.href}`;
+  return `I scored ${finalScore} on fivebyfive today — can you beat me?\n\n${rows}`;
 }
 
 export function BestGridModal({
@@ -43,12 +43,20 @@ export function BestGridModal({
   const [activeTab, setActiveTab] = React.useState<Tab>('results');
   const [copied, setCopied] = React.useState(false);
 
+  const canNativeShare = typeof navigator.share === 'function';
+
   const handleShare = () => {
     trackEvent('share_clicked', { score: finalScore });
-    navigator.clipboard.writeText(buildShareText(finalScore, highlightedCells)).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    const text = buildShareText(finalScore, highlightedCells);
+
+    if (canNativeShare) {
+      navigator.share({ title: 'fivebyfive', text, url: window.location.href }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`${text}\n\n${window.location.href}`).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
   };
 
   return (
@@ -116,13 +124,21 @@ export function BestGridModal({
                     </svg>
                     Copied!
                   </>
+                ) : canNativeShare ? (
+                  <>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M7 1v8M4 4l3-3 3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M2 9v3.5a.5.5 0 00.5.5h9a.5.5 0 00.5-.5V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    Share result
+                  </>
                 ) : (
                   <>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                       <rect x="4" y="1" width="9" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
                       <path d="M1 5v7a1.5 1.5 0 001.5 1.5H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
-                    Share result
+                    Copy result
                   </>
                 )}
               </button>
