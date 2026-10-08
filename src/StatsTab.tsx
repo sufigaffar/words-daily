@@ -7,8 +7,10 @@ type Props = {
   currentScore: number;
 };
 
-const formatNumber = (value: number | null) =>
-  value === null ? '–' : value.toLocaleString(undefined, { maximumFractionDigits: 1 });
+/** Whole numbers, rounded down. The nudge stops float error turning e.g. 0.29 * 100 into 28. */
+const floor = (value: number) => Math.floor(value + 1e-9);
+
+const formatNumber = (value: number | null) => (value === null ? '–' : floor(value).toLocaleString());
 
 function bucketLabel({ min, max }: ScoreBucket): string {
   if (max === null) return `${min}+`;
@@ -47,7 +49,7 @@ export function StatsTab({ stats, currentScore }: Props) {
               <h3 className={styles.sectionTitle}>Score distribution</h3>
               {stats.averagePercentOfBest !== null && (
                 <span className={styles.sectionNote}>
-                  Avg {Math.round(stats.averagePercentOfBest * 100)}% of best
+                  Avg {floor(stats.averagePercentOfBest * 100)}% of best
                 </span>
               )}
             </div>
@@ -87,7 +89,7 @@ export function StatsTab({ stats, currentScore }: Props) {
             </div>
             {stats.topWords.length > 0 && (
               <div className={styles.topWords}>
-                <span className={styles.topWordsTitle}>Most made</span>
+                <span className={styles.sectionTitle}>Most made</span>
                 <ol className={styles.topWordsList}>
                   {stats.topWords.map(({ word, count }, rank) => (
                     <li key={word} className={styles.topWord}>
