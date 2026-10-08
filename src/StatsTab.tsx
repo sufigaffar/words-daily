@@ -7,25 +7,21 @@ type Props = {
   currentScore: number;
 };
 
-const formatNumber = (value: number | null) =>
-  value === null ? '–' : value.toLocaleString(undefined, { maximumFractionDigits: 1 });
+/** Whole numbers, rounded down. The nudge stops float error turning e.g. 0.29 * 100 into 28. */
+const floor = (value: number) => Math.floor(value + 1e-9);
 
-function formatDate(key: string): string {
-  const [y, m, d] = key.split('-').map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-}
+const formatNumber = (value: number | null) => (value === null ? '–' : floor(value).toLocaleString());
 
 function bucketLabel({ min, max }: ScoreBucket): string {
   if (max === null) return `${min}+`;
   return min === 0 ? `<${max + 1}` : `${min}–${max}`;
 }
 
-function Tile({ value, label, caption, compact }: { value: string; label: string; caption?: string; compact?: boolean }) {
+function Tile({ value, label, compact }: { value: string; label: string; compact?: boolean }) {
   return (
     <div className={`${styles.tile}${compact ? ` ${styles.tileCompact}` : ''}`}>
       <span className={styles.tileValue}>{value}</span>
       <span className={styles.tileLabel}>{label}</span>
-      {caption && <span className={styles.tileCaption}>{caption}</span>}
     </div>
   );
 }
@@ -40,12 +36,8 @@ export function StatsTab({ stats, currentScore }: Props) {
         <Tile value={String(stats.currentStreak)} label="Streak" />
         <Tile value={String(stats.maxStreak)} label="Max streak" />
         <Tile value={formatNumber(stats.averageScore)} label="Average" />
-        <Tile value={formatNumber(stats.recentAverage)} label="Last 7" />
-        <Tile
-          value={formatNumber(stats.bestScore)}
-          label="Best"
-          caption={stats.bestScoreDate ? formatDate(stats.bestScoreDate) : undefined}
-        />
+        <Tile value={formatNumber(stats.bestScore)} label="Best" />
+        <Tile value={formatNumber(stats.totalScore)} label="Total points" />
       </div>
 
       {stats.played === 0 ? (
@@ -57,7 +49,7 @@ export function StatsTab({ stats, currentScore }: Props) {
               <h3 className={styles.sectionTitle}>Score distribution</h3>
               {stats.averagePercentOfBest !== null && (
                 <span className={styles.sectionNote}>
-                  Avg {Math.round(stats.averagePercentOfBest * 100)}% of best
+                  Avg {floor(stats.averagePercentOfBest * 100)}% of best
                 </span>
               )}
             </div>
@@ -97,7 +89,7 @@ export function StatsTab({ stats, currentScore }: Props) {
             </div>
             {stats.topWords.length > 0 && (
               <div className={styles.topWords}>
-                <span className={styles.topWordsTitle}>Most made</span>
+                <span className={styles.sectionTitle}>Most made</span>
                 <ol className={styles.topWordsList}>
                   {stats.topWords.map(({ word, count }, rank) => (
                     <li key={word} className={styles.topWord}>

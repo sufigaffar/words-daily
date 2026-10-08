@@ -58,11 +58,6 @@
     white-space: nowrap;
 }
 
-.tileCaption {
-    font-size: 0.66rem;
-    color: var(--color-text-muted);
-}
-
 .empty {
     margin: 0;
     font-size: 0.875rem;
@@ -149,12 +144,6 @@
     flex-direction: column;
     gap: 6px;
     margin-top: 4px;
-}
-
-.topWordsTitle {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-text-body);
 }
 
 .topWordsList {

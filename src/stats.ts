@@ -20,9 +20,8 @@ export type Stats = {
   played: number;
   averageScore: number | null;
   bestScore: number | null;
-  bestScoreDate: string | null;
-  /** Average of the 7 most recent completed puzzles. */
-  recentAverage: number | null;
+  /** Every completed puzzle's score added up. */
+  totalScore: number;
   /** Average of score / best possible score, over puzzles where the best is known. */
   averagePercentOfBest: number | null;
   scoreDistribution: ScoreBucket[];
@@ -97,11 +96,6 @@ export function computeStats(history: History, today: string = dateKey(), topWor
     .sort(([a], [b]) => a.localeCompare(b));
   const scores = entries.map(([, record]) => record.score);
 
-  let best: [string, GameRecord] | null = null;
-  for (const entry of entries) {
-    if (!best || entry[1].score > best[1].score) best = entry;
-  }
-
   const ratios = entries
     .filter(([, r]) => r.bestScore && r.bestScore > 0)
     .map(([, r]) => Math.min(r.score / r.bestScore!, 1));
@@ -136,9 +130,8 @@ export function computeStats(history: History, today: string = dateKey(), topWor
   return {
     played: entries.length,
     averageScore: mean(scores),
-    bestScore: best?.[1].score ?? null,
-    bestScoreDate: best?.[0] ?? null,
-    recentAverage: mean(scores.slice(-7)),
+    bestScore: scores.length ? Math.max(...scores) : null,
+    totalScore: scores.reduce((a, b) => a + b, 0),
     averagePercentOfBest: mean(ratios),
     scoreDistribution: BUCKETS.map(([min, max]) => ({
       min,
