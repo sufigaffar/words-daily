@@ -114,12 +114,6 @@
     margin-top: -4px;
 }
 
-.placeholder {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    padding: 24px 0;
-}
-
 @keyframes spin {
     to { transform: rotate(360deg); }
 }

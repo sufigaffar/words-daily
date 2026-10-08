@@ -38,6 +38,7 @@ function App() {
     placeLetterAt,
     undoLastPlacement,
     canUndo,
+    stats,
   } = useGame();
 
   const [modalClosed, setModalClosed] = React.useState(false);
@@ -126,6 +127,7 @@ function App() {
           bestHighlightedCells={bestHighlightedCells}
           bestRightConnectorCells={bestRightConnectorCells}
           bestBottomConnectorCells={bestBottomConnectorCells}
+          stats={stats}
           onClose={() => setModalClosed(true)}
         />
       )}

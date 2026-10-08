@@ -2,6 +2,8 @@ import * as React from 'react';
 import styles from './BestGridModal.module.scss';
 import { WordGrid } from './WordGrid.tsx';
 import { trackEvent } from './analytics.ts';
+import { StatsTab } from './StatsTab.tsx';
+import type { Stats } from './stats.ts';
 
 type Tab = 'results' | 'best-score' | 'stats';
 
@@ -15,6 +17,7 @@ type Props = {
   bestHighlightedCells: Set<number>;
   bestRightConnectorCells: Set<number>;
   bestBottomConnectorCells: Set<number>;
+  stats: Stats;
   onClose: () => void;
 };
 
@@ -38,6 +41,7 @@ export function BestGridModal({
   bestHighlightedCells,
   bestRightConnectorCells,
   bestBottomConnectorCells,
+  stats,
   onClose,
 }: Props) {
   const [activeTab, setActiveTab] = React.useState<Tab>('results');
@@ -164,7 +168,7 @@ export function BestGridModal({
           )}
 
           {activeTab === 'stats' && (
-            <div className={styles.placeholder}>Stats coming soon</div>
+            <StatsTab stats={stats} currentScore={finalScore} />
           )}
         </div>
       </div>

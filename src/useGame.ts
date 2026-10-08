@@ -1,8 +1,10 @@
 import * as React from "react";
 import { calculateBestGrid, calculateScore, getDailyLetters, getDailySeed, type WordMatch } from "./App.utils.ts";
 import { trackEvent } from "./analytics.ts";
+import { computeStats, dateKey, loadHistory, recordBestScore, recordGame, wordsFromMatches } from "./stats.ts";
 
 const COOKIE_KEY = `fivebyfive_${getDailySeed()}`;
+const TODAY = dateKey();
 
 type SavedGame = { boxes: string[]; currentTurn: number; history: number[]; undoUsed: boolean };
 
@@ -72,6 +74,8 @@ export function useGame() {
   const [bestGrid, setBestGrid] = React.useState<string[] | null>(null);
   const [bestRowMatches, setBestRowMatches] = React.useState<WordMatch[]>(Array(5).fill({ word: '', start: 0 }));
   const [bestColumnMatches, setBestColumnMatches] = React.useState<WordMatch[]>(Array(5).fill({ word: '', start: 0 }));
+  const [gameHistory, setGameHistory] = React.useState(loadHistory);
+  const stats = React.useMemo(() => computeStats(gameHistory, TODAY), [gameHistory]);
 
   const rowScores = React.useMemo(() => rowMatches.map(m => m.word.length), [rowMatches]);
   const columnScores = React.useMemo(() => columnMatches.map(m => m.word.length), [columnMatches]);
@@ -108,6 +112,11 @@ export function useGame() {
     calculateScore(boxes).then(([rowResults, columnResults]) => {
       setRowMatches(rowResults);
       setColumnMatches(columnResults);
+      if (currentTurn >= 25) {
+        const score = [...rowResults, ...columnResults].reduce((acc, m) => acc + m.word.length, 0);
+        recordGame(TODAY, score, wordsFromMatches(rowResults, columnResults));
+        setGameHistory(loadHistory());
+      }
       if (currentTurn >= 25 && !gameCompletedTracked.current) {
         gameCompletedTracked.current = true;
         const score = [...rowResults, ...columnResults].reduce((acc, m) => acc + m.word.length, 0);
@@ -124,6 +133,8 @@ export function useGame() {
     }).then(([rows, cols]) => {
       setBestRowMatches(rows);
       setBestColumnMatches(cols);
+      recordBestScore(TODAY, [...rows, ...cols].reduce((acc, m) => acc + m.word.length, 0));
+      setGameHistory(loadHistory());
     });
   }, [gameState]);
 
@@ -181,5 +192,6 @@ export function useGame() {
     placeLetterAt,
     undoLastPlacement,
     canUndo: history.length > 0 && !undoUsed,
+    stats,
   };
 }
