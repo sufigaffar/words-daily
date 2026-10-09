@@ -110,6 +110,7 @@ function App() {
       <footer className={styles.footer}>
         <span>built by Sufi Gaffar</span>
         <span className={styles.footerDedication}>in memory of Dan Jacobson</span>
+        <a className={styles.footerLink} href="/privacy/">privacy policy</a>
       </footer>
 
       {!howToPlayClosed && (
