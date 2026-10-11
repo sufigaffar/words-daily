@@ -4,6 +4,8 @@ import { useGame } from "./useGame.ts";
 import { BestGridModal } from "./BestGridModal.tsx";
 import { HowToPlayModal } from "./HowToPlayModal.tsx";
 import { WordGrid } from "./WordGrid.tsx";
+import { CookieBanner } from "./CookieBanner.tsx";
+import { getStoredConsent } from "./consent.ts";
 
 const PLAYED_COOKIE = 'fbf_has_played';
 
@@ -45,6 +47,7 @@ function App() {
   const showModal = gameState === 'finished' && !modalClosed;
 
   const [howToPlayClosed, setHowToPlayClosed] = React.useState(hasEverPlayed);
+  const [cookieBannerOpen, setCookieBannerOpen] = React.useState(() => getStoredConsent() === null);
 
   React.useEffect(() => {
     if (gameState === 'finished') {
@@ -110,7 +113,10 @@ function App() {
       <footer className={styles.footer}>
         <a className={styles.footerLink} href="/privacy/">privacy policy</a>
         <a className={styles.footerLink} href="/terms/">terms of use</a>
+        <button className={styles.footerButton} onClick={() => setCookieBannerOpen(true)}>cookie settings</button>
       </footer>
+
+      {cookieBannerOpen && <CookieBanner onChoice={() => setCookieBannerOpen(false)} />}
 
       {!howToPlayClosed && (
         <HowToPlayModal onClose={() => setHowToPlayClosed(true)} />

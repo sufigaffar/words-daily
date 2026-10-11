@@ -158,6 +158,17 @@
             color: inherit;
         }
     }
+
+    .footerButton {
+        padding: 0;
+        border: none;
+        background: none;
+        font: inherit;
+        font-size: 0.7rem;
+        color: inherit;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
 .viewBestButton {
