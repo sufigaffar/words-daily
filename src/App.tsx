@@ -111,9 +111,12 @@ function App() {
       </div>
 
       <footer className={styles.footer}>
-        <a className={styles.footerLink} href="/privacy/">privacy policy</a>
-        <a className={styles.footerLink} href="/terms/">terms of use</a>
-        <button className={styles.footerButton} onClick={() => setCookieBannerOpen(true)}>cookie settings</button>
+        <nav className={styles.footerNav} aria-label="Footer">
+          <a className={styles.footerLink} href="/privacy/">Privacy policy</a>
+          <a className={styles.footerLink} href="/terms/">Terms of use</a>
+          <button className={styles.footerButton} onClick={() => setCookieBannerOpen(true)}>Cookie settings</button>
+        </nav>
+        <span className={styles.footerDedication}>in memory of Dan Jacobson</span>
       </footer>
 
       {cookieBannerOpen && <CookieBanner onChoice={() => setCookieBannerOpen(false)} />}
