@@ -26,7 +26,7 @@ export function GridCell({ letter, isHighlighted, hasRightConnector, hasBottomCo
         disabled={letter !== '_'}
         className={`${styles.box} ${isHighlighted ? styles.boxHighlighted : ''}`}
       >
-        {letter}
+        {letter === '_' ? '' : letter}
       </button>
     </div>
   );

@@ -60,11 +60,16 @@ function App() {
     <>
       <header className={styles.banner}>
         <span>five<span className={styles.bannerBy}>by</span>five</span>
-        {gameState === 'finished' && (
-          <button className={styles.viewBestButton} onClick={() => setModalClosed(false)}>
-            View insights
+        <div className={styles.headerActions}>
+          {gameState === 'finished' && (
+            <button className={styles.viewBestButton} onClick={() => setModalClosed(false)}>
+              Insights
+            </button>
+          )}
+          <button className={styles.helpButton} onClick={() => setHowToPlayClosed(false)} aria-label="How to play">
+            ?
           </button>
-        )}
+        </div>
       </header>
       <div className={styles.gameArea}>
       <div className={styles.gameContainer}>
@@ -82,7 +87,10 @@ function App() {
               </svg>
             </button>
           )}
-          <div className={styles.mainLetter}>
+          <div
+            key={gameState === 'finished' ? 'final' : currentTurn}
+            className={`${styles.mainLetter}${gameState === 'finished' ? ` ${styles.finalScore}` : ''}`}
+          >
             {gameState === 'finished' ? `Score: ${finalScore}` : currentLetter}
           </div>
           <div className={styles.nextLetters}>
