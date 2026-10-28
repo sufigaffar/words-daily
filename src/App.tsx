@@ -62,7 +62,7 @@ function App() {
         <span>five<span className={styles.bannerBy}>by</span>five</span>
         {gameState === 'finished' && (
           <button className={styles.viewBestButton} onClick={() => setModalClosed(false)}>
-            View insights
+            Insights
           </button>
         )}
       </header>
@@ -82,7 +82,10 @@ function App() {
               </svg>
             </button>
           )}
-          <div className={styles.mainLetter}>
+          <div
+            key={gameState === 'finished' ? 'final' : currentTurn}
+            className={`${styles.mainLetter}${gameState === 'finished' ? ` ${styles.finalScore}` : ''}`}
+          >
             {gameState === 'finished' ? `Score: ${finalScore}` : currentLetter}
           </div>
           <div className={styles.nextLetters}>

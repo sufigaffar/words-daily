@@ -73,27 +73,54 @@
     box-sizing: border-box;
     color: var(--color-text-cell);
     font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 700;
     cursor: pointer;
     border: 1px solid var(--color-border-default);
-    transition: border-color 0.15s;
+    border-radius: 9px;
+    transition: border-color 0.15s, background-color 0.15s, transform 0.15s var(--ease-out), box-shadow 0.15s;
     background-color: var(--color-bg-surface);
+    box-shadow: var(--shadow-tile);
 
     &:hover:not(:disabled) {
         border-color: var(--color-border-hover);
         background-color: var(--color-bg-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(84, 88, 168, 0.15);
+    }
+
+    &:active:not(:disabled) {
+        transform: scale(0.95);
     }
 
     &:disabled {
         cursor: default;
+        color: var(--color-text-accent);
+        background-color: var(--color-bg-accent-subtle);
         border-color: var(--color-border-disabled);
+        box-shadow: var(--shadow-tile-filled);
+        animation: tile-place 0.35s var(--ease-spring);
     }
 
     &.boxHighlighted {
         background-color: var(--color-bg-word);
         border-color: var(--color-border-word);
         color: var(--color-text-word);
-        border-radius: 8px;
+        box-shadow: none;
+        animation: word-found 0.5s var(--ease-out);
+    }
+}
+
+@keyframes tile-place {
+    from {
+        transform: scale(0.7);
+        opacity: 0.4;
+    }
+}
+
+@keyframes word-found {
+    0% {
+        background-color: #b8ebcf;
+        filter: brightness(1.05);
     }
 }

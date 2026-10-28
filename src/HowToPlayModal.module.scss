@@ -5,11 +5,15 @@
     z-index: 100;
     display: flex;
     flex-direction: column;
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124, 130, 200, 0.14), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(106, 191, 138, 0.08), transparent 70%);
 }
 
 .banner {
     width: 100%;
-    background-color: #5458a8;
+    background: var(--gradient-brand);
+    box-shadow: 0 2px 12px rgba(84, 88, 168, 0.25);
     color: #ffffff;
     font-size: 1.5rem;
     font-weight: 700;
@@ -98,8 +102,13 @@
     gap: 10px;
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border-default);
-    border-radius: 10px;
+    border-radius: 14px;
     padding: 14px 16px;
+    box-shadow: var(--shadow-card);
+    animation: step-in 0.5s var(--ease-out) backwards;
+
+    &:nth-child(3) { animation-delay: 0.08s; }
+    &:nth-child(4) { animation-delay: 0.16s; }
 
     @media (min-height: 720px) {
         padding: 20px 20px;
@@ -128,6 +137,13 @@
     }
 }
 
+@keyframes step-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
 /* --- Mini grid (step 1) --- */
 
 .miniGrid {
@@ -144,14 +160,14 @@
 .miniCell {
     width: 32px;
     height: 32px;
-    border-radius: 5px;
+    border-radius: 7px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--color-text-cell);
 
     @media (min-height: 720px) {
@@ -169,7 +185,8 @@
 
 .miniCellFilled {
     background-color: var(--color-bg-accent-subtle);
-    border-color: var(--color-border-hover);
+    border-color: var(--color-border-disabled);
+    box-shadow: var(--shadow-tile-filled);
     color: var(--color-text-accent);
 }
 
@@ -205,14 +222,14 @@
 .miniRowCell {
     width: 32px;
     height: 32px;
-    border-radius: 5px;
+    border-radius: 7px;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-bg-page);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--color-text-word);
 
     @media (min-height: 720px) {
@@ -240,8 +257,9 @@
     color: var(--color-text-word);
     background-color: var(--color-bg-word);
     border: 1px solid var(--color-border-word);
-    border-radius: 4px;
-    padding: 2px 7px;
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-weight: 700;
     font-family: var(--font-sans);
 
     @media (min-height: 720px) {
@@ -261,9 +279,9 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: var(--color-bg-surface);
+    background-color: var(--color-bg-page);
     border: 1px solid var(--color-border-default);
-    border-radius: 6px;
+    border-radius: 10px;
     padding: 10px 16px;
     font-family: var(--font-sans);
 
@@ -280,8 +298,12 @@
 
 .miniCurrentLetter {
     font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--color-text-accent);
+    font-weight: 800;
+    color: #ffffff;
+    background: var(--gradient-brand);
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15), var(--shadow-button);
+    border-radius: 0.3em;
+    padding: 0.18em 0.32em;
     line-height: 1;
     font-family: var(--font-sans);
 
@@ -329,14 +351,16 @@
     width: 100%;
     padding: 11px 20px;
     border: none;
-    border-radius: 8px;
-    background-color: var(--color-text-accent);
+    border-radius: 12px;
+    background: var(--gradient-brand);
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15), var(--shadow-button);
     color: #fff;
     font-family: var(--font-serif);
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
     cursor: pointer;
-    transition: opacity 0.15s;
+    transition: filter 0.15s, transform 0.15s;
     box-sizing: border-box;
     flex-shrink: 0;
 
@@ -346,6 +370,10 @@
     }
 
     &:hover {
-        opacity: 0.85;
+        filter: brightness(1.08);
+    }
+
+    &:active {
+        transform: translateY(1px) scale(0.99);
     }
 }

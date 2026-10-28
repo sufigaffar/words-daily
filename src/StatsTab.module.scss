@@ -29,8 +29,9 @@
     padding: 14px 4px;
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border-default);
-    border-radius: 8px;
+    border-radius: 12px;
     min-width: 0;
+    box-shadow: var(--shadow-card);
 }
 
 .tileCompact {
@@ -42,7 +43,10 @@
 }
 
 .tileValue {
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
     font-size: 1.6rem;
+    font-weight: 800;
     font-weight: 700;
     color: var(--color-text-accent);
     line-height: 1.2;
@@ -121,8 +125,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: var(--color-bg-accent-subtle);
+    transform-origin: left;
+    animation: bar-grow 0.6s var(--ease-out) backwards;
     color: var(--color-text-muted);
     font-family: var(--font-sans);
     font-size: 0.75rem;
@@ -134,8 +140,13 @@
     color: #fff;
 }
 
+@keyframes bar-grow {
+    from { transform: scaleX(0); }
+}
+
 .barCurrent {
-    background-color: var(--color-text-accent);
+    background: var(--gradient-brand);
+    box-shadow: 0 2px 8px rgba(84, 88, 168, 0.3);
     color: #fff;
 }
 
