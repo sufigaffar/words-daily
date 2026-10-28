@@ -60,11 +60,16 @@ function App() {
     <>
       <header className={styles.banner}>
         <span>five<span className={styles.bannerBy}>by</span>five</span>
-        {gameState === 'finished' && (
-          <button className={styles.viewBestButton} onClick={() => setModalClosed(false)}>
-            Insights
+        <div className={styles.headerActions}>
+          {gameState === 'finished' && (
+            <button className={styles.viewBestButton} onClick={() => setModalClosed(false)}>
+              Insights
+            </button>
+          )}
+          <button className={styles.helpButton} onClick={() => setHowToPlayClosed(false)} aria-label="How to play">
+            ?
           </button>
-        )}
+        </div>
       </header>
       <div className={styles.gameArea}>
       <div className={styles.gameContainer}>

@@ -48,6 +48,7 @@
         background-color: var(--color-bg-word);
         border-top: 1px solid var(--color-border-word);
         border-bottom: 1px solid var(--color-border-word);
+        animation: word-found 0.6s var(--ease-out);
     }
 
     &.bottomConnected::before {
@@ -61,6 +62,7 @@
         background-color: var(--color-bg-word);
         border-left: 1px solid var(--color-border-word);
         border-right: 1px solid var(--color-border-word);
+        animation: word-found 0.6s var(--ease-out);
     }
 }
 
@@ -107,7 +109,8 @@
         border-color: var(--color-border-word);
         color: var(--color-text-word);
         box-shadow: none;
-        animation: word-found 0.5s var(--ease-out);
+        transition: none;
+        animation: word-found 0.6s var(--ease-out);
     }
 }
 
@@ -120,7 +123,7 @@
 
 @keyframes word-found {
     0% {
-        background-color: #b8ebcf;
-        filter: brightness(1.05);
+        background-color: #a9e5c3;
+        border-color: #4fae75;
     }
 }
