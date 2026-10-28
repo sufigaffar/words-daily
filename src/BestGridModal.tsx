@@ -168,7 +168,7 @@ export function BestGridModal({
           )}
 
           {activeTab === 'stats' && (
-            <StatsTab stats={stats} currentScore={finalScore} />
+            <StatsTab stats={stats} />
           )}
         </div>
       </div>
