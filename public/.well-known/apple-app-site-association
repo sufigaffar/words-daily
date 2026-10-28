@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["9DV634V8DP.com.sufigaffar.fivebyfive-game"],
+        "components": [
+          { "/": "/privacy/*", "exclude": true },
+          { "/": "/terms/*", "exclude": true },
+          { "/": "/support/*", "exclude": true },
+          { "/": "/*" }
+        ]
+      }
+    ]
+  }
+}
