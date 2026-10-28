@@ -1,0 +1,13 @@
+{
+  "name": "fivebyfive",
+  "short_name": "fivebyfive",
+  "description": "A new 5×5 word puzzle every day.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f1f5",
+  "theme_color": "#5458a8",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
